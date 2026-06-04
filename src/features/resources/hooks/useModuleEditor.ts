@@ -25,6 +25,11 @@ export interface ModuleEditor<T extends object> {
   submit: (onSaved?: () => void) => void
 }
 
+const stableStringify = (value: unknown): string =>
+  JSON.stringify(value, (_key, val) =>
+    Array.isArray(val) ? [...val].sort() : val,
+  )
+
 const readableError = (error: unknown): string =>
   error instanceof ApiError
     ? error.message
@@ -43,8 +48,9 @@ export function useModuleEditor<T extends object>({
   const [submitError, setSubmitError] = useState<string>()
 
   const isDirty = useMemo(
-    // cheap deep-compare: form state is small, flat and json-serializable with a stable key order
-    () => JSON.stringify(values) !== JSON.stringify(serverValue),
+    // cheap deep-compare: form state is small, flat and json-serializable.
+    // arrays (e.g. options) are sorted so selection order doesn't read as a change.
+    () => stableStringify(values) !== stableStringify(serverValue),
     [values, serverValue],
   )
 

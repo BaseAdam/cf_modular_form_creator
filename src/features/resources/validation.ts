@@ -25,8 +25,10 @@ const nameField = (label: string) =>
       `${label} can contain only letters, numbers, spaces, and hyphens`,
     )
 
+const resourceNameSchema = nameField('Resource name')
+
 export const basicInfoSchema = z.object({
-  resourceName: nameField('Resource name'),
+  resourceName: resourceNameSchema,
   owner: z
     .string()
     .trim()
@@ -83,6 +85,6 @@ export function validateProjectDetails(
 }
 
 export function validateResourceName(value: string): string | undefined {
-  const result = nameField('Resource name').safeParse(value)
+  const result = resourceNameSchema.safeParse(value)
   return result.success ? undefined : result.error.issues[0]?.message
 }

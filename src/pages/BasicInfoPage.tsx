@@ -15,7 +15,9 @@ export function BasicInfoPage() {
   const { resourceId } = useParams()
   return (
     <ResourceLoader id={resourceId}>
-      {(resource) => <BasicInfoEditor resource={resource} />}
+      {(resource) => (
+        <BasicInfoEditor key={resource.updatedAt} resource={resource} />
+      )}
     </ResourceLoader>
   )
 }

@@ -12,7 +12,6 @@ export function useInvalidateResource() {
         resourceKeys.detail(String(resource.resourceId)),
         resource,
       )
-      queryClient.setQueryData(resourceKeys.detail(resource._id), resource)
     }
   }
 }

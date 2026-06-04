@@ -48,6 +48,7 @@ export function ResourcesListPage() {
 
   const items = query.data?.items ?? []
   const pagination = query.data?.pagination
+  const currentPage = pagination?.page ?? page
 
   return (
     <Page>
@@ -128,19 +129,19 @@ export function ResourcesListPage() {
           <Button
             type="button"
             variant="secondary"
-            disabled={page <= 1}
-            onClick={() => setPage((current) => Math.max(1, current - 1))}
+            disabled={currentPage <= 1}
+            onClick={() => setPage(Math.max(1, currentPage - 1))}
           >
             Previous
           </Button>
           <PageInfo>
-            Page {pagination.page} of {pagination.totalPages}
+            Page {currentPage} of {pagination.totalPages}
           </PageInfo>
           <Button
             type="button"
             variant="secondary"
-            disabled={page >= pagination.totalPages}
-            onClick={() => setPage((current) => current + 1)}
+            disabled={currentPage >= pagination.totalPages}
+            onClick={() => setPage(currentPage + 1)}
           >
             Next
           </Button>

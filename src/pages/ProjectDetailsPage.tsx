@@ -17,7 +17,9 @@ export function ProjectDetailsPage() {
   const { resourceId } = useParams()
   return (
     <ResourceLoader id={resourceId}>
-      {(resource) => <ProjectDetailsGate resource={resource} />}
+      {(resource) => (
+        <ProjectDetailsGate key={resource.updatedAt} resource={resource} />
+      )}
     </ResourceLoader>
   )
 }
