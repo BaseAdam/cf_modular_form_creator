@@ -32,6 +32,14 @@ export default defineConfig({
           }]
         }
       }
+    }, {
+      // business-logic unit tests: pure functions, no DOM needed
+      extends: true,
+      test: {
+        name: 'unit',
+        environment: 'node',
+        include: ['src/**/*.test.ts']
+      }
     }]
   }
 });
